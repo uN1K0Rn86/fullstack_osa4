@@ -64,23 +64,51 @@ const listWithOneBlog = [
     }
 ]
 
-test('dummy returns one', () => {
+test('Dummy returns one', () => {
     const blogs = []
 
     const result = listHelper.dummy(blogs)
     assert.strictEqual(result, 1)
 })
 
-describe('total likes', () => {
-    test('when list has only one blog, returns the likes of that blog', () => {
+describe('Total likes', () => {
+    test('When list has only one blog, returns the likes of that blog', () => {
         assert.strictEqual(listHelper.totalLikes(listWithOneBlog), 5)
     })
 
-    test('when there are several blogs, returns the total likes of those', () => {
+    test('When there are several blogs, returns the total likes of those', () => {
         assert.strictEqual(listHelper.totalLikes(blogs), 36)
     })
 
-    test('when there are no blogs, returns 0', () => {
+    test('When there are no blogs, returns 0', () => {
         assert.strictEqual(listHelper.totalLikes([]), 0)
+    })
+})
+
+describe('Favorite blog', () => {
+    test('When list has one blog, returns that blog', () => {
+        assert.deepStrictEqual(listHelper.favoriteBlog(listWithOneBlog), {
+            _id: '5a422aa71b54a676234d17f8',
+            title: 'Go To Statement Considered Harmful',
+            author: 'Edsger W. Dijkstra',
+            url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+            likes: 5,
+            __v: 0
+        })
+    })
+
+    test('When there are several blogs, returns the blog with the most likes', () => {
+        assert.deepStrictEqual(listHelper.favoriteBlog(blogs), {
+            _id: "5a422b3a1b54a676234d17f9",
+            title: "Canonical string reduction",
+            author: "Edsger W. Dijkstra",
+            url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+            likes: 12,
+            __v: 0
+        })
+    })
+
+    test('When there are no blogs, returns null', () => {
+        assert.deepStrictEqual(listHelper.favoriteBlog([]), null)
     })
 })
