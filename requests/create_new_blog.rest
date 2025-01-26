@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Food for Foodies",
-    "author": "Hipster McPretentious",
-    "url": "https://hippret.com/foodie/",
-    "likes": 0
+    "title": "Woodworking with Ron",
+    "author": "Ron Dwanson",
+    "url": "https://woodthawork.com/work/",
+    "likes": 19999
 }
