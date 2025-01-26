@@ -24,6 +24,13 @@ test('Get request returns blogs in JSON form', async () => {
         .expect('Content-Type', /application\/json/)
 })
 
+test('Identifying field for blog is called id', async () => {
+    const response = await api.get('/api/blogs')
+    blog = response.body[0]
+    
+    assert(Object.keys(blog).includes('id'))
+})
+
 after(async () => {
     await mongoose.connection.close()
 })
