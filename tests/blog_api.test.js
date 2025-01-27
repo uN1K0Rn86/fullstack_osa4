@@ -26,9 +26,30 @@ test('Get request returns blogs in JSON form', async () => {
 
 test('Identifying field for blog is called id', async () => {
     const response = await api.get('/api/blogs')
-    blog = response.body[0]
-    
+    const blog = response.body[0]
+
     assert(Object.keys(blog).includes('id'))
+})
+
+test('A valid blog can be added', async () => {
+    const newBlog = {
+        title: 'How to Keep Your People from Falling into Despair',
+        author: 'Anomander Dragnipurake',
+        url: 'https://moonsspawn.com/ani',
+        likes: 28919
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+    const titles = response.body.map(r => r.title)
+
+    assert.strictEqual(response.body.length, helper.initialBlogs.length + 1)
+    assert(titles.includes('How to Keep Your People from Falling into Despair'))
 })
 
 after(async () => {
