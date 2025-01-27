@@ -71,6 +71,32 @@ test('If likes are not specified, default to 0', async () => {
     assert.strictEqual(likes.at(-1), 0)
 })
 
+test('If blog has no title, respond with 400 Bad Request', async () => {
+    const newBlog = {
+        author: 'Man Dible',
+        url: 'https://mandible.com/blogs',
+        likes: 2
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+})
+
+test('If blog has no url, respond with 400 Bad Request', async () => {
+    const newBlog = {
+        title: 'Art as a Tool for Illusion',
+        author: 'Shallan Davar',
+        likes: 1000000
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+})
+
 after(async () => {
     await mongoose.connection.close()
 })
